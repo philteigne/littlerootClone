@@ -10,10 +10,12 @@ The game will have a player that can be moved around the map as well as listen f
 
 The game will consiste a grid of tiles with 3 draw layers to make up the map.
 
-- **Floor Layer:** This consists of the background textures. All textures in this layer must fully fill their tile and have no transparency. Floor Layers have no boundaries.
-- **Object Layer:** This consists of structures sitting on top of the floor, including buildings, signs, trees, bushes etc. These textures can have some transparency on them showing the Floor Layer texture behind it sometimes. Object layers would sometimes have boundaries. Tiles do not need to have an Object layer value.
-- **Entity Layer:** This consists of characters, items etc. that are could change positions. Entities should always have boundaries. Tiles do not need to have an Entity layer value.
+- **Ground Layer:** This consists of the background textures. All textures in this layer must fully fill their tile and have no transparency. Ground Layers have no boundaries.
+- **Object Layer:** This consists of structures sitting on top of the ground, including buildings, signs, trees, bushes etc. These textures can have some transparency on them showing the Ground Layer texture behind it sometimes. Object layers would sometimes have boundaries. Tiles do not need to have an Object layer value.
+- **Entity Layer:** This consists of characters, items etc. that could change positions. Entities should always have boundaries. Tiles do not need to have an Entity layer value.
 
 Each Layer will be mapped to an individual array so that they can be moved independently of each other.
 
 When the viewable map is being drawn each layer is passed a contained array of identifiers that represent the type of tile that should be rendered. The relevant layer then references that identifier against a vector of keys containing all details associated with that tile.
+
+The objects can ovelay eachother in the object layer?
