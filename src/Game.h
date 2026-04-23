@@ -1,8 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include <vector>
-#include "./Display/Viewport.h"
-#include "./Map/GroundLayer.h"
+#include "./Map/MapTiles.h"
 
 class Game {
   public:
@@ -13,14 +12,10 @@ class Game {
     );
     void Draw();
     void HandleInput();
-    GroundLayer LoadMap();
-    LayerCells LoadTiles(Vector2 playerPosition);
   private:
     Vector2 playerPosition;
     int colCount;
     int rowCount;
     int cellSize;
-    GroundLayer currentMap;
-    LayerCells mapTiles;
-    ViewPort viewPort;
+    MapTiles map;
 };

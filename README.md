@@ -19,3 +19,11 @@ Each Layer will be mapped to an individual array so that they can be moved indep
 When the viewable map is being drawn each layer is passed a contained array of identifiers that represent the type of tile that should be rendered. The relevant layer then references that identifier against a vector of keys containing all details associated with that tile.
 
 The objects can ovelay eachother in the object layer?
+
+// TODO
+
+I don't think we need ViewPort at all we should be able to give MapTiles a draw method, and have it draw the relevant tiles directly
+
+Game should keep track of the player's location, it should pass the current location to the MapTiles draw method. The MapTiles draw method should load the relevant maptiles from the consts file then return the relevant tiles to game
+
+I think MapTiles should just return a map object that Game draws. The MapTiles will be used to check for events, interactions and collision and that should probably be handled at the game level.
