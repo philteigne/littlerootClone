@@ -1,36 +1,36 @@
 #include <iostream>
+#include <deque>
 #include "MapTiles.h"
 #include "../Consts/Maps.h"
 #include "../Consts/Colors.h"
 #include "Tile.h"
+#include "../Entities/Character.h"
 
 MapTiles::MapTiles(
   int colCount,
   int rowCount,
-  int cellSize
-) {
-  this -> colCount = colCount;
-  this -> rowCount = rowCount;
-  this -> cellSize = cellSize;
-}
-
+  int cellSize,
+  Player& player,
+  std::deque<Character>& characterList
+) : colCount(colCount),
+  rowCount(rowCount),
+  cellSize(cellSize),
+  player(player),
+  characterList(characterList)
+{}
+// 6, 15
 void MapTiles::Draw(Vector2 center) {
-  std::cout << "Called map.Draw()" << std::endl;
-  // std::cout << center << std::endl;
-
-
   // For now we assume the groundLayer and objectLayer sizes are the same since they overlay
   Map groundLayer = Maps::LittlerootTown::groundLayerMap;
   Map objectLayer = Maps::LittlerootTown::objectLayerMap;
-  int rowOffset = (rowCount - 1) / 2;
-  int colOffset = (colCount - 1) / 2;
+  Vector2 displayOrigin = {center.x - ((colCount - 1) / 2), center.y - ((rowCount - 1) / 2)};
   std::deque<std::deque<Tile>> mapTiles = {};
 
   for (int row = 0; row < rowCount; ++row) {
     std::deque<Tile> mapTilesRow = {};
     for (int col = 0; col < colCount; ++col) {
-      std::string groundLayerTile = groundLayer[center.y - rowOffset + row][center.x - colOffset + col];
-      std::string objectLayerTile = objectLayer[center.y - rowOffset + row][center.x - colOffset + col];
+      std::string groundLayerTile = groundLayer[displayOrigin.y + row][displayOrigin.x + col];
+      std::string objectLayerTile = objectLayer[displayOrigin.y + row][displayOrigin.x + col];
       Tile tile = Tile(
         groundLayerTile,
         objectLayerTile,
@@ -61,9 +61,23 @@ void MapTiles::Draw(Vector2 center) {
 
     mapTiles.push_back(mapTilesRow);
   }
+  
+  player.Draw(
+    (player.position.x - displayOrigin.x) * cellSize,
+    (player.position.y - displayOrigin.y) * cellSize
+  );
+
+  for (Character character : characterList) {
+    character.Draw(
+      character.position.x * cellSize,
+      character.position.y * cellSize
+    );
+  }
 
   tiles = mapTiles;
 }
+
+// We need a way to get the visible coordinate given the center of the rendered map and the real map coordinate
 
 Color MapTiles::GetTileColor(std::string tile, std::string layer)
 {

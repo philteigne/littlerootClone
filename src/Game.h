@@ -1,7 +1,10 @@
 #pragma once
 #include <raylib.h>
 #include <vector>
+#include <deque>
 #include "./Map/MapTiles.h"
+#include "./Entities/Player.h"
+#include "./Entities/Character.h"
 
 class Game {
   public:
@@ -13,7 +16,8 @@ class Game {
     void Draw();
     void HandleInput();
   private:
-    Vector2 playerPosition;
+    Player player;
+    std::deque<Character> characterList;
     int colCount;
     int rowCount;
     int cellSize;

@@ -5,14 +5,16 @@
 #include "./Map/MapTiles.h"
 
 Game::Game(int colCount, int rowCount, int cellSize) 
-  : playerPosition({13, 20}),
+  : player(Player({13, 20})),
     colCount(colCount),
     rowCount(rowCount),
     cellSize(cellSize),
     map(
       colCount,
       rowCount,
-      cellSize
+      cellSize,
+      player,
+      characterList
     )
   {
     Draw();
@@ -20,7 +22,7 @@ Game::Game(int colCount, int rowCount, int cellSize)
 
 
 void Game::Draw() {
-  map.Draw(playerPosition);
+  map.Draw(player.position);
 }
 
 void Game::HandleInput() {
@@ -28,23 +30,23 @@ void Game::HandleInput() {
 
   switch(keyPressed) {
     case KEY_UP:
-      playerPosition.y -= 1;
-      map.Draw(playerPosition);
+      player.Move(Up);
+      map.Draw(player.position);
       break;
     
     case KEY_RIGHT:
-      playerPosition.x += 1;
-      map.Draw(playerPosition);
+      player.Move(Right);
+      map.Draw(player.position);
       break;
 
     case KEY_DOWN:
-      playerPosition.y += 1;
-      map.Draw(playerPosition);
+      player.Move(Down);
+      map.Draw(player.position);
       break;
 
     case KEY_LEFT:
-      playerPosition.x -= 1;
-      map.Draw(playerPosition);
+      player.Move(Left);
+      map.Draw(player.position);
       break;
   };
 }

@@ -27,3 +27,5 @@ I don't think we need ViewPort at all we should be able to give MapTiles a draw 
 Game should keep track of the player's location, it should pass the current location to the MapTiles draw method. The MapTiles draw method should load the relevant maptiles from the consts file then return the relevant tiles to game
 
 I think MapTiles should just return a map object that Game draws. The MapTiles will be used to check for events, interactions and collision and that should probably be handled at the game level.
+
+Textures should be loaded outside of the game loop but for now it's fine
