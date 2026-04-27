@@ -3,8 +3,9 @@
 #include <iostream>
 #include "Game.h"
 #include "./Map/MapTiles.h"
+#include "Textures.h"
 
-Game::Game(int colCount, int rowCount, int cellSize) 
+Game::Game(int colCount, int rowCount, int cellSize, Textures textures) 
   : player(Player({13, 20})),
     colCount(colCount),
     rowCount(rowCount),
@@ -14,8 +15,10 @@ Game::Game(int colCount, int rowCount, int cellSize)
       rowCount,
       cellSize,
       player,
-      characterList
-    )
+      characterList,
+      textures
+    ),
+    textures(textures)
   {
     Draw();
   }

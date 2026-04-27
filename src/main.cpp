@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <iostream>
 #include "Game.h"
+#include "Textures.h"
 
 const int SCREEN_WIDTH = 240;
 const int SCREEN_HEIGHT = 160;
@@ -13,10 +14,13 @@ int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pokemon Emerald");
     SetTargetFPS(TARGET_FPS);
 
+    Textures textures = Textures();
+
     Game game = Game(
         GRID_WIDTH,
         GRID_HEIGHT,
-        CELL_SIZE
+        CELL_SIZE,
+        textures
     );
 
     while (WindowShouldClose() == false) {

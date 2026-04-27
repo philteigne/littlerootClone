@@ -5,35 +5,39 @@
 #include "../Consts/Colors.h"
 #include "Tile.h"
 #include "../Entities/Character.h"
+#include "../Textures.h"
 
 MapTiles::MapTiles(
   int colCount,
   int rowCount,
   int cellSize,
   Player& player,
-  std::deque<Character>& characterList
+  std::deque<Character>& characterList,
+  Textures textures
 ) : colCount(colCount),
   rowCount(rowCount),
   cellSize(cellSize),
   player(player),
-  characterList(characterList)
+  characterList(characterList),
+  textures(textures)
 {}
 // 6, 15
 void MapTiles::Draw(Vector2 center) {
   // For now we assume the groundLayer and objectLayer sizes are the same since they overlay
-  Map groundLayer = Maps::LittlerootTown::groundLayerMap;
-  Map objectLayer = Maps::LittlerootTown::objectLayerMap;
+  GroundMap groundLayer = Maps::LittlerootTown::groundLayerMap;
+  ObjectMap objectLayer = Maps::LittlerootTown::objectLayerMap;
   Vector2 displayOrigin = {center.x - ((colCount - 1) / 2), center.y - ((rowCount - 1) / 2)};
   std::deque<std::deque<Tile>> mapTiles = {};
 
   for (int row = 0; row < rowCount; ++row) {
     std::deque<Tile> mapTilesRow = {};
     for (int col = 0; col < colCount; ++col) {
-      std::string groundLayerTile = groundLayer[displayOrigin.y + row][displayOrigin.x + col];
-      std::string objectLayerTile = objectLayer[displayOrigin.y + row][displayOrigin.x + col];
+      GroundTexture groundLayerTile = groundLayer[displayOrigin.y + row][displayOrigin.x + col];
+      ObjectTexture objectLayerTile = objectLayer[displayOrigin.y + row][displayOrigin.x + col];
       Tile tile = Tile(
         groundLayerTile,
         objectLayerTile,
+        textures,
         true,
         nullptr,
         nullptr
@@ -42,21 +46,33 @@ void MapTiles::Draw(Vector2 center) {
       mapTilesRow.push_back(tile);
 
       // groundLayer
-      DrawRectangle(
-        col * cellSize, // x-position
-        row * cellSize, // y-position
-        cellSize, // width
-        cellSize, // height
-        GetTileColor(groundLayerTile, "groundLayer") // colour
-      );
-      // objectLayer
-      DrawRectangle(
+      DrawTexture(
+        tile.groundTexture,
         col * cellSize,
         row * cellSize,
-        cellSize - 5,
-        cellSize - 5,
-        GetTileColor(objectLayerTile, "objectLayer")
+        WHITE
       );
+      // DrawRectangle(
+      //   col * cellSize, // x-position
+      //   row * cellSize, // y-position
+      //   cellSize, // width
+      //   cellSize, // height
+      //   GetTileColor(groundLayerTile, "groundLayer") // colour
+      // );
+      // objectLayer
+      DrawTexture(
+        tile.objectTexture,
+        col * cellSize,
+        row * cellSize,
+        WHITE
+      );
+      // DrawRectangle(
+      //   col * cellSize,
+      //   row * cellSize,
+      //   cellSize - 5,
+      //   cellSize - 5,
+      //   GetTileColor(objectLayerTile, "objectLayer")
+      // );
     }
 
     mapTiles.push_back(mapTilesRow);

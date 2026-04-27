@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "../Entities/Player.h"
 #include "../Entities/Character.h"
+#include "../Textures.h"
 
 class MapTiles {
   public:
@@ -12,7 +13,8 @@ class MapTiles {
       int rowCount,
       int cellSize,
       Player& player,
-      std::deque<Character>& characterList
+      std::deque<Character>& characterList,
+      Textures textures
     );
     void Draw(
       Vector2 center
@@ -26,4 +28,5 @@ class MapTiles {
     Color GetTileColor(std::string tile, std::string layer);
     Player& player;
     std::deque<Character>& characterList;
+    Textures textures;
 };

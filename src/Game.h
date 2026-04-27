@@ -5,13 +5,15 @@
 #include "./Map/MapTiles.h"
 #include "./Entities/Player.h"
 #include "./Entities/Character.h"
+#include "Textures.h"
 
 class Game {
   public:
     Game(
       int colCount,
       int rowCount,
-      int cellSize
+      int cellSize,
+      Textures textures
     );
     void Draw();
     void HandleInput();
@@ -22,4 +24,5 @@ class Game {
     int rowCount;
     int cellSize;
     MapTiles map;
+    Textures textures;
 };

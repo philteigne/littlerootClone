@@ -2,23 +2,31 @@
 #include <string>
 #include <functional>
 #include <raylib.h>
+#include "../Consts/Maps.h"
+#include "../Textures.h"
 
 class Tile {
   public:
     Tile(
-      std::string groundLayer,
-      std::string objectLayer,
+      GroundTexture groundLayer,
+      ObjectTexture objectLayer,
+      Textures textures,
       bool isAccessible = true,
-      std::function<void()> onEnter() = nullptr,
-      std::function<void()> onInteract() = nullptr
+      std::function<void()> onEnter = nullptr,
+      std::function<void()> onInteract = nullptr
     );
-    Image groundTexture;
-    Image entityTexture;
-    Image objectTexture;
+    Texture2D groundTexture;
+    Texture2D entityTexture;
+    Texture2D objectTexture;
     bool isAccessible;
-    std::function<void()> onEnter();
-    std::function<void()> onInteract();
+    void Enter();
+    void Interact();
+    GroundTexture groundLayer;
+    ObjectTexture objectLayer;
   private:
-    std::string groundLayer;
-    std::string objectLayer;
+    std::function<void()> onEnter;
+    std::function<void()> onInteract;
+    void LoadGroundTexture();
+    void LoadObjectTexture();
+    Textures textures;
 };
