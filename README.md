@@ -29,3 +29,5 @@ Game should keep track of the player's location, it should pass the current loca
 I think MapTiles should just return a map object that Game draws. The MapTiles will be used to check for events, interactions and collision and that should probably be handled at the game level.
 
 Textures should be loaded outside of the game loop but for now it's fine
+
+It likely isn't worth it in the future to have tiles with texture layers and interaction. Textures and interactions can be managed in separate maps. Since they only need to be made properly once it is fine to hardcode map tiles to where they are supposed to be rather than to try and dynamically render each tile type. This also allows more freedom for different tile interactions and odd textures.
