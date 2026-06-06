@@ -80,7 +80,7 @@ void MapTiles::Draw(Vector2 center) {
   
   player.Draw(
     (player.position.x - displayOrigin.x) * cellSize,
-    (player.position.y - displayOrigin.y) * cellSize
+    (player.position.y - displayOrigin.y - 1) * cellSize
   );
 
   for (Character character : characterList) {
