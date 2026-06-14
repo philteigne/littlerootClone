@@ -11,22 +11,15 @@ class MapTiles {
     MapTiles(
       int colCount,
       int rowCount,
-      int cellSize,
-      Player& player,
-      std::deque<Character>& characterList,
-      Textures textures
-    );
-    void Draw(
-      Vector2 center
+      int cellSize
     );
     std::deque<std::deque<Tile>> tiles;
+    Rectangle visibleBounds;
   private:
     int colCount;
     int rowCount;
     int cellSize;
     std::string currentMap;
-    Color GetTileColor(std::string tile, std::string layer);
-    Player& player;
     std::deque<Character>& characterList;
     Textures textures;
 };

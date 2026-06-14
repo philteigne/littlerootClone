@@ -1,8 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include <string>
-
-enum Direction { Up, Right, Down, Left};
+#include "../Direction.h"
 
 class Character {
   public:

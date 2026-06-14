@@ -18,5 +18,6 @@ namespace Colors {
     inline const Color TREE_GREEN = Color{95, 172, 68, 255};
     inline const Color RIDGE_BROWN = Color{127, 86, 86, 255};
     inline const Color DOOR_BROWN = Color{91, 58, 76, 255};
+    inline const Color HOUSE_BROWN = Color{208, 208, 192, 255};
   }
 };

@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <iostream>
+#include "../Direction.h"
 
 Character::Character(
   Vector2 position,
@@ -15,22 +16,22 @@ Character::Character(
     texturePathRight(texturePathRight),
     texturePathDown(texturePathDown),
     texturePathLeft(texturePathLeft),
-    facing(Up)
+    facing(Direction::Up)
   {}
 
 void Character::Draw(int posX, int posY)
 {
   switch (facing) {
-    case Up:
+    case Direction::Up:
       texture = LoadTexture(texturePathUp);
       break;
-    case Right:
+    case Direction::Right:
       texture = LoadTexture(texturePathRight);
       break;
-    case Down:
+    case Direction::Down:
       texture = LoadTexture(texturePathDown);
       break;
-    case Left:
+    case Direction::Left:
       texture = LoadTexture(texturePathLeft);
       break;
     default:
@@ -42,24 +43,24 @@ void Character::Draw(int posX, int posY)
 
 void Character::Move(Direction direction) {
   switch (direction) {
-    case Up:
+    case Direction::Up:
       position = Vector2Add(position, {0, -1});
-      facing = Up;
+      facing = Direction::Up;
       break;
 
-    case Right:
+    case Direction::Right:
       position = Vector2Add(position, {1, 0});
-      facing = Right;
+      facing = Direction::Right;
       break;
 
-    case Down:
+    case Direction::Down:
       position = Vector2Add(position, {0, 1});
-      facing = Down;
+      facing = Direction::Down;
       break;
 
-    case Left:
+    case Direction::Left:
       position = Vector2Add(position, {-1, 0});
-      facing = Left;
+      facing = Direction::Left;
       break;
 
     default:

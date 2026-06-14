@@ -31,3 +31,10 @@ I think MapTiles should just return a map object that Game draws. The MapTiles w
 Textures should be loaded outside of the game loop but for now it's fine
 
 It likely isn't worth it in the future to have tiles with texture layers and interaction. Textures and interactions can be managed in separate maps. Since they only need to be made properly once it is fine to hardcode map tiles to where they are supposed to be rather than to try and dynamically render each tile type. This also allows more freedom for different tile interactions and odd textures.
+
+Look into raylib Camera2D
+
+Convert texture structure to 3 layers.
+Background Layer - Things like grass, paths, and flowers that render behind the player if they were to enter that tile.
+Entity Layer - Include players, objects that change from visible to not visible or move locations. These would be overlaying on top of the normal background tiles
+Foreground Layer - Items on this layer would be static but could hide portions of the tile beneath them, so either the top of tress/houses or the texture of a bush when a player enters.

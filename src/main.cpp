@@ -14,13 +14,10 @@ int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pokemon Emerald");
     SetTargetFPS(TARGET_FPS);
 
-    Textures textures = Textures();
-
     Game game = Game(
         GRID_WIDTH,
         GRID_HEIGHT,
-        CELL_SIZE,
-        textures
+        CELL_SIZE
     );
 
     while (WindowShouldClose() == false) {
