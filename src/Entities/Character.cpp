@@ -6,16 +6,16 @@
 
 Character::Character(
   Vector2 position,
-  char* texturePathUp,
-  char* texturePathRight,
-  char* texturePathDown,
-  char* texturePathLeft
+  Texture2D textureUp,
+  Texture2D textureRight,
+  Texture2D textureDown,
+  Texture2D textureLeft
 ) 
   : position(position),
-    texturePathUp(texturePathUp),
-    texturePathRight(texturePathRight),
-    texturePathDown(texturePathDown),
-    texturePathLeft(texturePathLeft),
+    textureUp(textureUp),
+    textureRight(textureRight),
+    textureDown(textureDown),
+    textureLeft(textureLeft),
     facing(Direction::Up)
   {}
 
@@ -23,19 +23,19 @@ void Character::Draw(int posX, int posY)
 {
   switch (facing) {
     case Direction::Up:
-      texture = LoadTexture(texturePathUp);
+      texture = textureUp;
       break;
     case Direction::Right:
-      texture = LoadTexture(texturePathRight);
+      texture = textureRight;
       break;
     case Direction::Down:
-      texture = LoadTexture(texturePathDown);
+      texture = textureDown;
       break;
     case Direction::Left:
-      texture = LoadTexture(texturePathLeft);
+      texture = textureLeft;
       break;
     default:
-      texture = LoadTexture("../assets/textures/default.png");
+      texture = textureDown;
   }
 
   DrawTexture(texture, posX, posY, WHITE);

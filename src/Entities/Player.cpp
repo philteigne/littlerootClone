@@ -1,11 +1,17 @@
+#include <raylib.h>
 #include "Player.h"
 
-Player::Player(Vector2 position)
-  : Character(
+Player::Player(
+  Vector2 position,
+  Texture2D EPlayerUp,
+  Texture2D EPlayerRight,
+  Texture2D EPlayerDown,
+  Texture2D EPlayerLeft
+) : Character(
       position,
-      "src/assets/textures/e.player-up.png",
-      "src/assets/textures/e.player-right.png",
-      "src/assets/textures/e.player-down.png",
-      "src/assets/textures/e.player-left.png"
+      EPlayerUp,
+      EPlayerRight,
+      EPlayerDown,
+      EPlayerLeft
     )
   {}

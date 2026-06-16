@@ -21,14 +21,14 @@ class Game {
     std::vector<DrawableTexture> fgTextures;
     Rectangle visibleBounds;
   private:
-    Player player;
-    std::deque<Character> characterList;
+  std::deque<Character> characterList;
     int colCount;
     int rowCount;
     int cellSize;
     MapTiles map;
     Textures textures;
     Vector2 displayOrigin;
+    Player player;
     void SetVisibleBounds();
     void MoveDisplay(Direction);
 };

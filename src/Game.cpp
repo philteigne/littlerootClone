@@ -10,8 +10,7 @@
 #include "Direction.h"
 
 Game::Game(int colCount, int rowCount, int cellSize) 
-  : player(Player({13, 20})),
-    colCount(colCount),
+  : colCount(colCount),
     rowCount(rowCount),
     cellSize(cellSize),
     map(
@@ -19,7 +18,14 @@ Game::Game(int colCount, int rowCount, int cellSize)
       rowCount,
       cellSize
     ),
-    textures()
+    textures(),
+    player(Player(
+      {13, 20},
+      textures.EPlayerUp,
+      textures.EPlayerRight,
+      textures.EPlayerDown,
+      textures.EPlayerLeft
+    ))
   {
     // Top Left coordinate of the visible screen
     displayOrigin = {player.position.x - ((colCount - 1) / 2), player.position.y - ((rowCount - 1) / 2)};

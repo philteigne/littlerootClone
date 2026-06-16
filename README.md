@@ -40,6 +40,4 @@ Entity Layer - Include players, objects that change from visible to not visible 
 Foreground Layer - Items on this layer would be static but could hide portions of the tile beneath them, so either the top of tress/houses or the texture of a bush when a player enters.
 
 Should separate display out of Game
-Player is rendering behind fg layer while on tile below them
 Need to add collision to tiles
-Load player textures outside of loop

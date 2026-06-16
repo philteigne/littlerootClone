@@ -7,10 +7,10 @@ class Character {
   public:
     Character(
       Vector2 position,
-      char* texturePathUp,
-      char* texturePathRight,
-      char* texturePathDown,
-      char* texturePathLeft
+      Texture2D textureUp,
+      Texture2D textureRight,
+      Texture2D textureDown,
+      Texture2D textureLeft
     );
     Vector2 position;
     Direction facing; // up right down left
@@ -18,8 +18,8 @@ class Character {
     void Move(Direction direction);
   private:
     Texture2D texture;
-    const char* texturePathUp;
-    const char* texturePathRight;
-    const char* texturePathDown;
-    const char* texturePathLeft;
+    Texture2D textureUp;
+    Texture2D textureRight;
+    Texture2D textureDown;
+    Texture2D textureLeft;
 };
