@@ -61,19 +61,31 @@ DrawableTexture::DrawableTexture(
       texture = textures.BGPath;
       break;
     case T0:
+      texture = textures.BGTree;
+      break;
+    case T1:
       texture = textures.FGTree;
       break;
     case D0:
       texture = textures.Default;
       break;
-    case H1:
+    case C1:
       texture = textures.FGHouse1;
       break;
-    case H2:
+    case C2:
       texture = textures.FGHouse2;
       break;
-    case H3:
+    case C3:
       texture = textures.FGHouse3;
+      break;
+    case H1:
+      texture = textures.BGHouse1;
+      break;
+    case H2:
+      texture = textures.BGHouse2;
+      break;
+    case H3:
+      texture = textures.BGHouse3;
       break;
     case X0:
       texture = textures.Empty;

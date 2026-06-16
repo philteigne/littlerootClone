@@ -21,7 +21,11 @@ class Textures {
     Texture2D BGRidge;
     Texture2D BGSign;
     Texture2D BGTallGrass;
+    Texture2D BGTree;
     Texture2D FGTree;
+    Texture2D BGHouse1;
+    Texture2D BGHouse2;
+    Texture2D BGHouse3;
     Texture2D FGHouse1;
     Texture2D FGHouse2;
     Texture2D FGHouse3;

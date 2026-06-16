@@ -38,3 +38,8 @@ Convert texture structure to 3 layers.
 Background Layer - Things like grass, paths, and flowers that render behind the player if they were to enter that tile.
 Entity Layer - Include players, objects that change from visible to not visible or move locations. These would be overlaying on top of the normal background tiles
 Foreground Layer - Items on this layer would be static but could hide portions of the tile beneath them, so either the top of tress/houses or the texture of a bush when a player enters.
+
+Should separate display out of Game
+Player is rendering behind fg layer while on tile below them
+Need to add collision to tiles
+Load player textures outside of loop

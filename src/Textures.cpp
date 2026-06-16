@@ -18,7 +18,11 @@ Textures::Textures() {
   BGRidge = LoadTexture("src/assets/textures/bg.ridge.png");
   BGSign = LoadTexture("src/assets/textures/bg.sign.png");
   BGTallGrass = LoadTexture("src/assets/textures/bg.tall_grass.png");
+  BGTree = LoadTexture("src/assets/textures/bg.tree.png");
   FGTree = LoadTexture("src/assets/textures/fg.tree.png");
+  BGHouse1 = LoadTexture("src/assets/textures/bg.house_1.png");
+  BGHouse2 = LoadTexture("src/assets/textures/bg.house_2.png");
+  BGHouse3 = LoadTexture("src/assets/textures/bg.house_3.png");
   FGHouse1 = LoadTexture("src/assets/textures/fg.house_1.png");
   FGHouse2 = LoadTexture("src/assets/textures/fg.house_2.png");
   FGHouse3 = LoadTexture("src/assets/textures/fg.house_3.png");
