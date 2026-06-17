@@ -3,6 +3,7 @@
 #include <raymath.h>
 #include <iostream>
 #include "../Direction.h"
+#include "../Consts/Maps.h"
 
 Character::Character(
   Vector2 position,
@@ -44,28 +45,49 @@ void Character::Draw(int posX, int posY)
 void Character::Move(Direction direction) {
   switch (direction) {
     case Direction::Up:
-      position = Vector2Add(position, {0, -1});
+      moveTarget = Vector2Add(position, {0, -1});
+      if (isAccessibleTile(moveTarget)) {
+        position = moveTarget;
+      }
       facing = Direction::Up;
       break;
 
     case Direction::Right:
-      position = Vector2Add(position, {1, 0});
+      moveTarget = Vector2Add(position, {1, 0});
+      if (isAccessibleTile(moveTarget)) {
+        position = moveTarget;
+      }
       facing = Direction::Right;
       break;
 
     case Direction::Down:
-      position = Vector2Add(position, {0, 1});
+      moveTarget = Vector2Add(position, {0, 1});
+      if (isAccessibleTile(moveTarget)) {
+        position = moveTarget;
+      }
       facing = Direction::Down;
       break;
 
     case Direction::Left:
-      position = Vector2Add(position, {-1, 0});
+      moveTarget = Vector2Add(position, {-1, 0});
+      if (isAccessibleTile(moveTarget)) {
+        position = moveTarget;
+      }
       facing = Direction::Left;
       break;
 
     default:
       break;
   }
+}
 
+bool Character::isAccessibleTile(Vector2 targetTile) {
+  CollisionMap collisionMap = Maps::LittlerootTown::collisionMap;
+  bool isAccessible;
 
+  collisionMap[targetTile.y][targetTile.x] == 00 ?
+    isAccessible = true :
+    isAccessible = false;
+
+  return isAccessible;
 }

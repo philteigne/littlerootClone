@@ -4,7 +4,6 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "Game.h"
-#include "./Map/MapTiles.h"
 #include "./Textures.h"
 #include "Textures.h"
 #include "Direction.h"
@@ -13,11 +12,6 @@ Game::Game(int colCount, int rowCount, int cellSize)
   : colCount(colCount),
     rowCount(rowCount),
     cellSize(cellSize),
-    map(
-      colCount,
-      rowCount,
-      cellSize
-    ),
     textures(),
     player(Player(
       {13, 20},
@@ -90,22 +84,22 @@ void Game::HandleInput() {
   switch(keyPressed) {
     case KEY_UP:
       player.Move(Direction::Up);
-      MoveDisplay(Direction::Up);
+      CenterDisplay();
       break;
     
     case KEY_RIGHT:
       player.Move(Direction::Right);
-      MoveDisplay(Direction::Right);
+      CenterDisplay();
       break;
 
     case KEY_DOWN:
       player.Move(Direction::Down);
-      MoveDisplay(Direction::Down);
+      CenterDisplay();
       break;
 
     case KEY_LEFT:
       player.Move(Direction::Left);
-      MoveDisplay(Direction::Left);
+      CenterDisplay();
       break;
   };
 
@@ -123,21 +117,9 @@ void Game::SetVisibleBounds() {
   };
 }
 
-void Game::MoveDisplay(Direction direction) {
-  switch(direction) {
-    case Direction::Up:
-      displayOrigin = Vector2Add(displayOrigin, {0, -1});
-      break;
-    case Direction::Right:
-      displayOrigin = Vector2Add(displayOrigin, {1, 0});
-      break;
-    case Direction::Down:
-      displayOrigin = Vector2Add(displayOrigin, {0, 1});
-      break;
-    case Direction::Left:
-      displayOrigin = Vector2Add(displayOrigin, {-1, 0});
-      break;
-    default:
-      break;
-  }
+void Game::CenterDisplay() {
+  displayOrigin = Vector2{
+    player.position.x - ((colCount - 1) / 2),
+    player.position.y - ((rowCount - 1) / 2)
+  };
 }

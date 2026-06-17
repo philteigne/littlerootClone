@@ -22,4 +22,6 @@ class Character {
     Texture2D textureRight;
     Texture2D textureDown;
     Texture2D textureLeft;
+    Vector2 moveTarget;
+    bool isAccessibleTile(Vector2 targetTile);
 };
