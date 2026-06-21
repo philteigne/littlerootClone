@@ -30,4 +30,5 @@ Textures::Textures() {
   EPlayerRight = LoadTexture("src/assets/textures/e.player-right.png");
   EPlayerDown = LoadTexture("src/assets/textures/e.player-down.png");
   EPlayerLeft = LoadTexture("src/assets/textures/e.player-left.png");
+  OLTextBox = LoadTexture("src/assets/textures/ol.text-box.png");
 }

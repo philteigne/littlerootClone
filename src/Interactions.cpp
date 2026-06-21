@@ -1,30 +1,33 @@
 #include <iostream>
 #include "Interactions.h"
 #include "./Entities/Player.h"
+#include "./Overlays/TextBox.h"
 
-Interactions::Interactions(Player& player)
-  : player(player) {
+Interactions::Interactions(Player& player, TextBox& textBox)
+  : player(player),
+  textBox(textBox)
+{
   // Default function at index 0
   interactionMap.push_back([](){});
 
   // 01: Mom House Sign
   interactionMap.push_back([this] {
-    std::cout << this->player.name << "'s HOUSE";
+    this->textBox.Show(this->player.name + "'s HOUSE");
   });
 
   // 02: Professor Birch House Sign
   interactionMap.push_back([this] {
-    std::cout << "PROF. BIRCH'S HOUSE";
+    this->textBox.Show("PROF. BIRCH'S HOUSE");
   });
   
   // 03: Professor Birch Pokemon Lab Sign
   interactionMap.push_back([this] {
-    std::cout << "PROF. BIRCH'S POKeMON LAB";
+    this->textBox.Show("PROF. BIRCH'S POKéMON LAB");
   });
 
   // 04: Littleroot Town Sign
   interactionMap.push_back([this] {
-    std::cout << "LITTLEROOT TOWN\n" << "\"A town that can\'t be shaded any hue.\"";
+    this->textBox.Show("LITTLEROOT TOWN\n\"A town that can't be shaded any hue.\"");
   });
 
 }

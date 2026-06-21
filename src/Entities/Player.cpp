@@ -1,7 +1,6 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <iostream>
-#include "../Interactions.h"
 #include "Character.h"
 #include "Player.h"
 #include "../Direction.h"
@@ -19,8 +18,7 @@ Player::Player(
       EPlayerRight,
       EPlayerDown,
       EPlayerLeft
-    ),
-    interactions(*this)
+    )
   {
     SetName();
   }
@@ -29,8 +27,8 @@ Player::Player(
     this->name = "Phil";
   }
 
-  void Player::Interact() {
-    // Find target tile from the player position and the facing direction
+  int Player::Interact() {
+    // Find target tile interactionId from the player position and the facing direction
     Vector2 targetTile;
     int interactionId = 00;
 
@@ -55,9 +53,7 @@ Player::Player(
         break;
     }
 
-    if (interactionId == 00) return;
-
-    interactions.interactionMap[interactionId]();
+    return interactionId;
   }
 
   Vector2 Player::getInteractTargetTile() {

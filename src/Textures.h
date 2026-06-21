@@ -33,5 +33,6 @@ class Textures {
     Texture2D EPlayerRight;
     Texture2D EPlayerDown;
     Texture2D EPlayerLeft;
+    Texture2D OLTextBox;
   private:
 };

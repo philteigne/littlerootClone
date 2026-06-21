@@ -13,8 +13,7 @@ class Player : public Character {
       Texture2D EPlayerLeft
     );
     void SetName();
-    void Interact();
+    int Interact();
   private:
     Vector2 getInteractTargetTile();
-    Interactions interactions;
 };

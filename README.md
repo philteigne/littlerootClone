@@ -42,3 +42,8 @@ Foreground Layer - Items on this layer would be static but could hide portions o
 Should separate display out of Game
 A better system for the maps would be to store classes in the Map to be able to manage all properties for a file together. The problem in VSCode right now with this is just managing the visual structure.
 https://www.mapeditor.org/ managing maps this way won't be practical for larger projects
+
+rowCount, colCount, and screenSize are being passed to almost every component, I think it should likely be referened from consts. Should textures object also be a global const. What determines if something should be passed or just referenced?
+
+I had the grid height wrong it should be 10 not 11, need to recenter player next.
+font isn't loading quotes correctly. Load font elsewhere with correct codepoints value

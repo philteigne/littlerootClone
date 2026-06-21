@@ -4,22 +4,29 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "Game.h"
-#include "./Textures.h"
 #include "Textures.h"
 #include "Direction.h"
+#include "Interactions.h"
 
 Game::Game(int colCount, int rowCount, int cellSize) 
   : colCount(colCount),
     rowCount(rowCount),
     cellSize(cellSize),
     textures(),
+    textBox(
+      rowCount,
+      colCount,
+      cellSize,
+      textures.OLTextBox
+    ),
     player(Player(
       {13, 20},
       textures.EPlayerUp,
       textures.EPlayerRight,
       textures.EPlayerDown,
       textures.EPlayerLeft
-    ))
+    )),
+    interactions(player, textBox)
   {
     // Top Left coordinate of the visible screen
     displayOrigin = {player.position.x - ((colCount - 1) / 2), player.position.y - ((rowCount - 1) / 2)};
@@ -50,7 +57,6 @@ Game::Game(int colCount, int rowCount, int cellSize)
           textures
         );
         fgTextures.push_back(fgTexture);
-
       }
     }
   }
@@ -76,6 +82,9 @@ void Game::Draw() {
       fgTexture.Draw(displayOrigin);
     }
   }
+
+  // Draw Overlay Textures
+  textBox.Draw();
 }
 
 void Game::HandleInput() {
@@ -83,27 +92,51 @@ void Game::HandleInput() {
 
   switch(keyPressed) {
     case KEY_UP:
+      if (textBox.isVisible) {
+        break;
+      }
       player.Move(Direction::Up);
       CenterDisplay();
       break;
     
     case KEY_RIGHT:
+      if (textBox.isVisible) {
+        break;
+      }
       player.Move(Direction::Right);
       CenterDisplay();
       break;
 
     case KEY_DOWN:
+      if (textBox.isVisible) {
+        break;
+      }
       player.Move(Direction::Down);
       CenterDisplay();
       break;
 
     case KEY_LEFT:
+      if (textBox.isVisible) {
+        break;
+      }
       player.Move(Direction::Left);
       CenterDisplay();
       break;
 
     case KEY_Z:
-      player.Interact();
+      // If TextBox isVisible advance or Hide TextBox
+      if (textBox.isVisible) {
+        textBox.Hide();
+        break;
+      }
+      interactions.interactionMap[player.Interact()]();
+      break;
+    
+    case KEY_X:
+      if (textBox.isVisible) {
+        textBox.Hide();
+        break;
+      }
       break;
 
     default:

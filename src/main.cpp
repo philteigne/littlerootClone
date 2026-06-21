@@ -6,7 +6,7 @@
 const int SCREEN_WIDTH = 240;
 const int SCREEN_HEIGHT = 160;
 const int GRID_WIDTH = 15;
-const int GRID_HEIGHT = 11;
+const int GRID_HEIGHT = 10;
 const int CELL_SIZE = (SCREEN_WIDTH / GRID_WIDTH);
 const int TARGET_FPS = 60;
 

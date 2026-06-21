@@ -6,6 +6,8 @@
 #include "./Entities/Player.h"
 #include "./Entities/Character.h"
 #include "Textures.h"
+#include "./Overlays/TextBox.h"
+#include "Interactions.h"
 
 class Game {
   public:
@@ -25,8 +27,10 @@ class Game {
     int rowCount;
     int cellSize;
     Textures textures;
+    TextBox textBox;
     Vector2 displayOrigin;
     Player player;
+    Interactions interactions;
     void SetVisibleBounds();
     void CenterDisplay();
 };
