@@ -29,7 +29,7 @@ Game::Game(int colCount, int rowCount, int cellSize)
     interactions(player, textBox)
   {
     // Top Left coordinate of the visible screen
-    displayOrigin = {player.position.x - ((colCount - 1) / 2), player.position.y - ((rowCount - 1) / 2)};
+    displayOrigin = {player.position.x - ((colCount - 1) / 2), player.position.y - (rowCount / 2)};
     SetVisibleBounds();
 
     BGLayerMap bgLayer = Maps::LittlerootTown::bgLayerMap;
@@ -161,6 +161,6 @@ void Game::SetVisibleBounds()
 void Game::CenterDisplay() {
   displayOrigin = Vector2{
     player.position.x - ((colCount - 1) / 2),
-    player.position.y - ((rowCount - 1) / 2)
+    player.position.y - (rowCount / 2)
   };
 }
