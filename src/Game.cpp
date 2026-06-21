@@ -101,12 +101,20 @@ void Game::HandleInput() {
       player.Move(Direction::Left);
       CenterDisplay();
       break;
+
+    case KEY_Z:
+      player.Interact();
+      break;
+
+    default:
+      break;
   };
 
   SetVisibleBounds();
 }
 
-void Game::SetVisibleBounds() {
+void Game::SetVisibleBounds()
+{
   float displayWidth = colCount * cellSize;
   float displayHeight = rowCount * cellSize;
   visibleBounds = Rectangle{

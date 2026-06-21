@@ -14,6 +14,7 @@ class Character {
     );
     Vector2 position;
     Direction facing; // up right down left
+    std::string name;
     void Draw(int posX, int posY);
     void Move(Direction direction);
   private:

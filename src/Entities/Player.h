@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include "../Interactions.h"
 #include "Character.h"
 
 class Player : public Character {
@@ -11,4 +12,9 @@ class Player : public Character {
       Texture2D EPlayerDown,
       Texture2D EPlayerLeft
     );
+    void SetName();
+    void Interact();
+  private:
+    Vector2 getInteractTargetTile();
+    Interactions interactions;
 };
