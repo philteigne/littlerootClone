@@ -27,7 +27,7 @@ Interactions::Interactions(Player& player, TextBox& textBox)
 
   // 04: Littleroot Town Sign
   interactionMap.push_back([this] {
-    this->textBox.Show("LITTLEROOT TOWN\n\"A town that can't be shaded any hue.\"");
+    this->textBox.Show("LITTLEROOT TOWN\n“A town that can't be shaded any hue.”");
   });
 
 }

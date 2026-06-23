@@ -9,9 +9,10 @@ TextBox::TextBox(
   int rowCount,
   int colCount,
   int cellSize,
-  Texture2D texture
+  Texture2D texture,
+  Font font
 ) : boxTexture(texture),
-  font(LoadFontEx("./src/assets/fonts/pokemon-emerald.otf", 15, 0, 250))
+  font(font)
 {
   
   drawOrigin = {

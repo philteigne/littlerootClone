@@ -8,7 +8,8 @@ class TextBox {
       int rowCount,
       int colCount,
       int cellSize,
-      Texture2D texture
+      Texture2D texture,
+      Font font
     );
     void Draw();
     void Show(std::string text);

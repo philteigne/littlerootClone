@@ -13,11 +13,13 @@ Game::Game(int colCount, int rowCount, int cellSize)
     rowCount(rowCount),
     cellSize(cellSize),
     textures(),
+    fonts(),
     textBox(
       rowCount,
       colCount,
       cellSize,
-      textures.OLTextBox
+      textures.OLTextBox,
+      fonts.fontDialog
     ),
     player(Player(
       {13, 20},

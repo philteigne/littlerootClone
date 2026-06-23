@@ -6,6 +6,7 @@
 #include "./Entities/Player.h"
 #include "./Entities/Character.h"
 #include "Textures.h"
+#include "Fonts.h"
 #include "./Overlays/TextBox.h"
 #include "Interactions.h"
 
@@ -22,11 +23,12 @@ class Game {
     std::vector<DrawableTexture> fgTextures;
     Rectangle visibleBounds;
   private:
-  std::deque<Character> characterList;
+    std::deque<Character> characterList;
     int colCount;
     int rowCount;
     int cellSize;
     Textures textures;
+    Fonts fonts;
     TextBox textBox;
     Vector2 displayOrigin;
     Player player;
