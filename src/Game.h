@@ -18,11 +18,13 @@ class Game {
       int cellSize
     );
     void Draw();
+    void Update();
     void HandleInput();
     std::vector<DrawableTexture> bgTextures;
     std::vector<DrawableTexture> fgTextures;
     Rectangle visibleBounds;
   private:
+    std::vector<Direction> directionInputBuffer;
     std::deque<Character> characterList;
     int colCount;
     int rowCount;
@@ -30,9 +32,11 @@ class Game {
     Textures textures;
     Fonts fonts;
     TextBox textBox;
+    double lastUpdateTime = 0;
     Vector2 displayOrigin;
     Player player;
     Interactions interactions;
     void SetVisibleBounds();
     void CenterDisplay();
+    void RemoveDirectionInput(Direction direction);
 };

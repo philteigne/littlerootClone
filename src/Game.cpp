@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 #include <deque>
 #include <iostream>
 #include <raylib.h>
@@ -24,12 +25,20 @@ Game::Game(int colCount, int rowCount, int cellSize)
     player(Player(
       {13, 20},
       textures.EPlayerUp,
+      textures.EPlayerUpWalk1,
+      textures.EPlayerUpWalk2,
       textures.EPlayerRight,
+      textures.EPlayerRightWalk1,
+      textures.EPlayerRightWalk2,
       textures.EPlayerDown,
-      textures.EPlayerLeft
+      textures.EPlayerDownWalk1,
+      textures.EPlayerDownWalk2,
+      textures.EPlayerLeft,
+      textures.EPlayerLeftWalk1,
+      textures.EPlayerLeftWalk2
     )),
     interactions(player, textBox)
-  {
+  { 
     // Top Left coordinate of the visible screen
     displayOrigin = {player.position.x - ((colCount - 1) / 2), player.position.y - (rowCount / 2)};
     SetVisibleBounds();
@@ -89,67 +98,54 @@ void Game::Draw() {
   textBox.Draw();
 }
 
+void Game::Update() {
+  player.Update();
+}
+
 void Game::HandleInput() {
-  int keyPressed = GetKeyPressed();
+  // Decide which input type to listen to
+  if (textBox.isVisible) {
+    // textBox is visible, only textBox interactions should be listened to
+    if (IsKeyPressed(KEY_Z)) textBox.Hide();
+    else if (IsKeyPressed(KEY_X)) textBox.Hide();
 
-  switch(keyPressed) {
-    case KEY_UP:
-      if (textBox.isVisible) {
-        break;
-      }
-      player.Move(Direction::Up);
-      CenterDisplay();
-      break;
-    
-    case KEY_RIGHT:
-      if (textBox.isVisible) {
-        break;
-      }
-      player.Move(Direction::Right);
-      CenterDisplay();
-      break;
+    return;
+  }
 
-    case KEY_DOWN:
-      if (textBox.isVisible) {
-        break;
-      }
-      player.Move(Direction::Down);
-      CenterDisplay();
-      break;
+  // Movement enabled
+  if (IsKeyPressed(KEY_Z)) {
+    interactions.interactionMap[player.Interact()]();
+  }
 
-    case KEY_LEFT:
-      if (textBox.isVisible) {
-        break;
-      }
-      player.Move(Direction::Left);
-      CenterDisplay();
-      break;
+  // If multiple keys are held down, use the valid (latest pushed) key
+  if (IsKeyPressed(KEY_UP)) directionInputBuffer.push_back(Direction::Up);
+  if (IsKeyReleased(KEY_UP)) RemoveDirectionInput(Direction::Up);
+  if (IsKeyPressed(KEY_RIGHT)) directionInputBuffer.push_back(Direction::Right);
+  if (IsKeyReleased(KEY_RIGHT)) RemoveDirectionInput(Direction::Right);
+  if (IsKeyPressed(KEY_DOWN)) directionInputBuffer.push_back(Direction::Down);
+  if (IsKeyReleased(KEY_DOWN)) RemoveDirectionInput(Direction::Down);
+  if (IsKeyPressed(KEY_LEFT)) directionInputBuffer.push_back(Direction::Left);
+  if (IsKeyReleased(KEY_LEFT)) RemoveDirectionInput(Direction::Left);
 
-    case KEY_Z:
-      // If TextBox isVisible advance or Hide TextBox
-      if (textBox.isVisible) {
-        textBox.Hide();
-        break;
-      }
-      interactions.interactionMap[player.Interact()]();
-      break;
-    
-    case KEY_X:
-      if (textBox.isVisible) {
-        textBox.Hide();
-        break;
-      }
-      break;
+  if (IsKeyDown(KEY_UP) && directionInputBuffer.back() == Direction::Up) {
+    player.Move(Direction::Up);
+  }
+  if (IsKeyDown(KEY_RIGHT) && directionInputBuffer.back() == Direction::Right) {
+    player.Move(Direction::Right);
+  }
+  if (IsKeyDown(KEY_DOWN) && directionInputBuffer.back() == Direction::Down) {
+    player.Move(Direction::Down);
+  }
+  if (IsKeyDown(KEY_LEFT) && directionInputBuffer.back() == Direction::Left) {
+    player.Move(Direction::Left);
+  }
 
-    default:
-      break;
-  };
+  CenterDisplay();
 
   SetVisibleBounds();
 }
 
-void Game::SetVisibleBounds()
-{
+void Game::SetVisibleBounds() {
   float displayWidth = colCount * cellSize;
   float displayHeight = rowCount * cellSize;
   visibleBounds = Rectangle{
@@ -165,4 +161,15 @@ void Game::CenterDisplay() {
     player.position.x - ((colCount - 1) / 2),
     player.position.y - (rowCount / 2)
   };
+}
+
+void Game::RemoveDirectionInput(Direction direction) {
+  directionInputBuffer.erase(
+    std::remove(
+      directionInputBuffer.begin(),
+      directionInputBuffer.end(),
+      direction
+    ),
+    directionInputBuffer.end()
+  );
 }

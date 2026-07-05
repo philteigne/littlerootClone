@@ -45,5 +45,6 @@ https://www.mapeditor.org/ managing maps this way won't be practical for larger 
 
 rowCount, colCount, and screenSize are being passed to almost every component, I think it should likely be referened from consts. Should textures object also be a global const. What determines if something should be passed or just referenced?
 
-I had the grid height wrong it should be 10 not 11, need to recenter player next.
-font isn't loading quotes correctly. Load font elsewhere with correct codepoints value
+Movement system can be added to NPCs when added to the game.
+
+Seeing jitter around the edges of the screen now/
