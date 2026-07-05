@@ -27,8 +27,16 @@ Textures::Textures() {
   FGHouse2 = LoadTexture("src/assets/textures/fg.house_2.png");
   FGHouse3 = LoadTexture("src/assets/textures/fg.house_3.png");
   EPlayerUp = LoadTexture("src/assets/textures/e.player-up.png");
+  EPlayerUpWalk1 = LoadTexture("src/assets/textures/e.player-up-walk-01.png");
+  EPlayerUpWalk2 = LoadTexture("src/assets/textures/e.player-up-walk-02.png");
   EPlayerRight = LoadTexture("src/assets/textures/e.player-right.png");
+  EPlayerRightWalk1 = LoadTexture("src/assets/textures/e.player-right-walk-01.png");
+  EPlayerRightWalk2 = LoadTexture("src/assets/textures/e.player-right-walk-02.png");
   EPlayerDown = LoadTexture("src/assets/textures/e.player-down.png");
+  EPlayerDownWalk1 = LoadTexture("src/assets/textures/e.player-down-walk-01.png");
+  EPlayerDownWalk2 = LoadTexture("src/assets/textures/e.player-down-walk-02.png");
   EPlayerLeft = LoadTexture("src/assets/textures/e.player-left.png");
+  EPlayerLeftWalk1 = LoadTexture("src/assets/textures/e.player-left-walk-01.png");
+  EPlayerLeftWalk2 = LoadTexture("src/assets/textures/e.player-left-walk-02.png");
   OLTextBox = LoadTexture("src/assets/textures/ol.text-box.png");
 }

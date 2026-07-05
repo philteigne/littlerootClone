@@ -25,8 +25,8 @@ int main() {
         // 1. Handle Input
         game.HandleInput();
 
-
         // 2. Update
+        game.Update();
 
         // 3. Drawing
         ClearBackground(WHITE);
