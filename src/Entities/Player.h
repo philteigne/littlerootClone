@@ -21,7 +21,6 @@ class Player : public Character {
       Texture2D EPlayerLeftWalk2
     );
     void SetName();
-    int Interact();
+    int Interact(InteractionMap& interactionMap);
   private:
-    Vector2 getInteractTargetTile();
 };

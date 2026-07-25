@@ -21,6 +21,7 @@ Player::Player(
   Texture2D EPlayerLeftWalk1,
   Texture2D EPlayerLeftWalk2
 ) : Character(
+      99,
       position,
       EPlayerUp,
       EPlayerUpWalk1,
@@ -33,7 +34,12 @@ Player::Player(
       EPlayerDownWalk2,
       EPlayerLeft,
       EPlayerLeftWalk1,
-      EPlayerLeftWalk2
+      EPlayerLeftWalk2,
+      Rectangle{0,0,0,0},
+      0,
+      []() {
+        return Direction::Down;
+      }
     )
   {
     SetName();
@@ -44,36 +50,32 @@ Player::Player(
     this->name = "Phil";
   }
 
-  int Player::Interact() {
+  int Player::Interact(InteractionMap& interactionMap) {
     // Find target tile interactionId from the player position and the facing direction
     Vector2 targetTile;
     int interactionId = 00;
+    if (isMoving) return interactionId;
 
     switch(this->facing) {
       case Direction::Up:
         targetTile = Vector2Add(this->position, {0, -1});
-        interactionId = Maps::LittlerootTown::interactionMap[targetTile.y][targetTile.x];
+        interactionId = interactionMap[targetTile.y][targetTile.x];
         break;
       case Direction::Right:
         targetTile = Vector2Add(this->position, {1, 0});
-        interactionId = Maps::LittlerootTown::interactionMap[targetTile.y][targetTile.x];
+        interactionId = interactionMap[targetTile.y][targetTile.x];
         break;
       case Direction::Down:
         targetTile = Vector2Add(this->position, {0, 1});
-        interactionId = Maps::LittlerootTown::interactionMap[targetTile.y][targetTile.x];
+        interactionId = interactionMap[targetTile.y][targetTile.x];
         break;
       case Direction::Left:
         targetTile = Vector2Add(this->position, {-1, 0});
-        interactionId = Maps::LittlerootTown::interactionMap[targetTile.y][targetTile.x];
+        interactionId = interactionMap[targetTile.y][targetTile.x];
         break;
       default:
         break;
     }
 
     return interactionId;
-  }
-
-  Vector2 Player::getInteractTargetTile() {
-
-    return Vector2();
   }

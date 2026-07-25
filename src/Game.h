@@ -1,7 +1,6 @@
 #pragma once
 #include <raylib.h>
 #include <vector>
-#include <deque>
 #include "./Map/DrawableTexture.h"
 #include "./Entities/Player.h"
 #include "./Entities/Character.h"
@@ -9,6 +8,7 @@
 #include "Fonts.h"
 #include "./Overlays/TextBox.h"
 #include "Interactions.h"
+#include "./Consts/Maps.h"
 
 class Game {
   public:
@@ -22,10 +22,14 @@ class Game {
     void HandleInput();
     std::vector<DrawableTexture> bgTextures;
     std::vector<DrawableTexture> fgTextures;
+    std::vector<Character*> orderedEntities;
     Rectangle visibleBounds;
+    EntityMap entityMap;
+    InteractionMap interactionMap;
+    CollisionMap collisionMap;
   private:
     std::vector<Direction> directionInputBuffer;
-    std::deque<Character> characterList;
+    std::vector<Character*> characterList;
     int colCount;
     int rowCount;
     int cellSize;
@@ -35,6 +39,9 @@ class Game {
     double lastUpdateTime = 0;
     Vector2 displayOrigin;
     Player player;
+    Character npc01;
+    Character npc02;
+    Character npc03;
     Interactions interactions;
     void SetVisibleBounds();
     void CenterDisplay();

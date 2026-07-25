@@ -6,6 +6,7 @@
 #include "../Consts/Maps.h"
 
 Character::Character(
+  int id,
   Vector2 position,
   Texture2D textureUp,
   Texture2D textureUpWalk1,
@@ -18,9 +19,13 @@ Character::Character(
   Texture2D textureDownWalk2,
   Texture2D textureLeft,
   Texture2D textureLeftWalk1,
-  Texture2D textureLeftWalk2
+  Texture2D textureLeftWalk2,
+  Rectangle moveBounds,
+  int moveCooldown,
+  std::function<Direction()> determineMoveTarget
 ) 
-  : position(position),
+  : id(id),
+    position(position),
     positionAnchor(position),
     textureUp(textureUp),
     textureUpWalk1(textureUpWalk1),
@@ -34,11 +39,14 @@ Character::Character(
     textureLeft(textureLeft),
     textureLeftWalk1(textureLeftWalk1),
     textureLeftWalk2(textureLeftWalk2),
-    facing(Direction::Up),
-    textureDefault(textureUp),
+    facing(Direction::Down),
+    textureDefault(textureDown),
     textureWalk1(textureUpWalk1),
     textureWalk2(textureUpWalk2),
-    texture(textureUp)
+    texture(textureDown),
+    moveBounds(moveBounds),
+    moveCooldown(moveCooldown),
+    determineMoveTarget(determineMoveTarget)
   {}
 
 void Character::Draw(int posX, int posY) {
@@ -93,8 +101,17 @@ void Character::Update() {
   };
 }
 
-void Character::Move(Direction direction) {
+void Character::Move(
+  Direction direction,
+  EntityMap& entityMap,
+  InteractionMap& interactionMap,
+  CollisionMap& collisionMap
+) {
   if (isMoving) return;
+  if (moveTimer < moveCooldown) {
+    moveTimer++;
+    return;
+  }
   
   switch (direction) {
     case Direction::Up:
@@ -125,22 +142,59 @@ void Character::Move(Direction direction) {
       break;
   }
 
-  if (facing == direction) isMoving = true;
+  if (facing == direction) {
+    isMoving = true;
+    moveTimer = 0;
+  }
   facing = direction;
   texture = textureDefault;
 
   // if the moveTarget tile is inaccessible overwrite the move target so the player stays
   // in position but still animates
-  if (!isAccessibleTile(moveTarget)) moveTarget = position;
+  if (!isAccessibleTile(moveTarget, entityMap, collisionMap)) moveTarget = position;
+  if (!isMoving) moveTarget = position;
+
+  entityMap[position.y][position.x] = 00;
+  interactionMap[position.y][position.x] = 00;
+  entityMap[moveTarget.y][moveTarget.x] = id;
+  interactionMap[moveTarget.y][moveTarget.x] = id;
 }
 
-bool Character::isAccessibleTile(Vector2 targetTile) {
-  CollisionMap collisionMap = Maps::LittlerootTown::collisionMap;
-  bool isAccessible;
+void Character::UpdateNPC(
+    EntityMap& entityMap,
+    InteractionMap& interactionMap,
+    CollisionMap& collisionMap
+) {
+    if (isMoving) {
+        Update();
+        return;
+    }
 
-  collisionMap[targetTile.y][targetTile.x] == 00 ?
-    isAccessible = true :
-    isAccessible = false;
+    Direction direction = determineMoveTarget();
+    Vector2 preMoveTarget = getTargetTile(direction);
+    if (
+      preMoveTarget.x < moveBounds.x ||
+      preMoveTarget.x >= moveBounds.x + moveBounds.width ||
+      preMoveTarget.y < moveBounds.y ||
+      preMoveTarget.y >= moveBounds.y + moveBounds.height
+    ) return;
+
+    Move(direction, entityMap, interactionMap, collisionMap);
+}
+
+bool Character::isAccessibleTile(
+  Vector2 targetTile,
+  EntityMap& entityMap,
+  CollisionMap& collisionMap
+) {
+  bool isAccessible = false;
+
+  if (
+    collisionMap[targetTile.y][targetTile.x] == 00 &&
+    entityMap[targetTile.y][targetTile.x] == 00
+  ) {
+    isAccessible = true;
+  }
 
   return isAccessible;
 }
@@ -155,4 +209,19 @@ void Character::setPartialPosition(int stepsCount, int currentStep, Vector2 dire
       {movementRatio, movementRatio}
     )
   );
+}
+
+Vector2 Character::getTargetTile(Direction direction) {
+  switch (direction) {
+    case Direction::Up:
+      return Vector2Add(position, {0, -1});
+    case Direction::Right:
+      return Vector2Add(position, {1, 0});
+    case Direction::Down:
+      return Vector2Add(position, {0, 1});
+    case Direction::Left:
+      return Vector2Add(position, {-1, 0});
+
+  }
+  return position;
 }

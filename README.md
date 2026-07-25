@@ -46,5 +46,7 @@ https://www.mapeditor.org/ managing maps this way won't be practical for larger 
 rowCount, colCount, and screenSize are being passed to almost every component, I think it should likely be referened from consts. Should textures object also be a global const. What determines if something should be passed or just referenced?
 
 Movement system can be added to NPCs when added to the game.
+Might need to render player through the entities layer to properly layer entities above and behind player
 
+Text is going off screen. Continue and new line should likely be automatic with line length.
 Seeing jitter around the edges of the screen now/
